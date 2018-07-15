@@ -8,6 +8,9 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import bodyParser from 'body-parser';
 import { schema } from './schemas';
 
+import { createTable, createTrack, getTrack, listTables } from './services/tables';
+import { trackTable } from './schemas/tracks';
+
 AWS.config.update({
     region: "us-west-2",
     endpoint: 'http://localhost:8000',
@@ -48,3 +51,8 @@ server.listen(app.get('port'), () => {
   new SubscriptionServer({schema, execute, subscribe}, {server, path: '/subscriptions'});
   console.log("Running on localhost:" + app.get('port')); 
 });
+
+//createTable(trackTable);
+//createTrack();
+getTrack();
+//listTables();
