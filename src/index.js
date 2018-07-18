@@ -1,4 +1,3 @@
-import AWS from 'aws-sdk';
 import { createServer } from 'http';
 import express from 'express';
 import cors from 'cors';
@@ -8,19 +7,9 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import bodyParser from 'body-parser';
 import { schema } from './schemas';
 
-import { createTable, createTrack, getTrack, listTables } from './services/tables';
-import { trackTable } from './schemas/tracks';
-
-AWS.config.update({
-    region: "us-west-2",
-    endpoint: 'http://localhost:8000',
-    // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-    accessKeyId: "fakeMyKeyId",
-    // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-    secretAccessKey: "fakeSecretAccessKey"
-});
+import { createTrack, getTrack } from './services/tracks';
+import { createTable, listTables } from './services/tables';
+import { trackTable } from './schemas/dynamodb/tracks';
 
 const app = express();
 
@@ -54,5 +43,5 @@ server.listen(app.get('port'), () => {
 
 //createTable(trackTable);
 //createTrack();
-getTrack();
+//getTrack(null, 1);
 //listTables();

@@ -1,21 +1,27 @@
+/**
+ * Attributes
+ * ID (N): Primary id
+ * TRACK_URL (S): Url to s3 bucket
+ * SESSION_ID (N): Id for the session the track belongs to
+ */
 const trackTable = {
     AttributeDefinitions: [
         {
-            AttributeName: 'ID',
+            AttributeName: 'SESSION_ID',
             AttributeType: 'N'
         },
         {
-            AttributeName: 'TRACK_URL',
-            AttributeType: 'S'
+            AttributeName: 'ID',
+            AttributeType: 'N'
         }
     ],
     KeySchema: [
         {
-            AttributeName: 'ID',
+            AttributeName: 'SESSION_ID',
             KeyType: 'HASH'
         },
         {
-            AttributeName: 'TRACK_URL',
+            AttributeName: 'ID',
             KeyType: 'RANGE'
         }
     ],

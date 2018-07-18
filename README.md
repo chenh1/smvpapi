@@ -18,7 +18,7 @@ This server runs with a graphql interface and the client facing application is h
 ### Initialization 
 
 1. `cd dynamodb_local_latest` (or wherever you saved your dynamoDb to)
-2. run `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+2. run `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb`
 3. npm start
 
 ### Notes:
