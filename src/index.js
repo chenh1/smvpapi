@@ -7,7 +7,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import bodyParser from 'body-parser';
 import { schema } from './schemas';
 
-import { createTrack, getTrack } from './services/tracks';
+import { createTrack, getTrack, updateTrack } from './services/tracks';
 import { createTable, listTables } from './services/tables';
 import { trackTable } from './schemas/dynamodb/tracks';
 
@@ -43,5 +43,6 @@ server.listen(app.get('port'), () => {
 
 //createTable(trackTable);
 //createTrack();
-//getTrack(null, 1);
+//updateTrack(1, 1, 's3.newUrl')
+getTrack(1, 1);
 //listTables();
