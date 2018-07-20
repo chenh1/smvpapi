@@ -1,6 +1,6 @@
 import { documentClient } from '../initDynamo';
 
-const updateTrack = (SESSION_ID, ID, url) => {
+const updateTrack = (SESSION_ID, ID, URL) => {
     const params = {
         TableName: 'TRACKS',
         Key: {
@@ -12,7 +12,7 @@ const updateTrack = (SESSION_ID, ID, url) => {
             '#U': 'URL'
         }, 
         ExpressionAttributeValues: {
-            ':u': url 
+            ':u': URL
         }
     };
 
