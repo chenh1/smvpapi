@@ -1,13 +1,14 @@
-import { uuidv4 } from 'uuid';
 import { documentClient } from '../initDynamo';
+import { uuidv4 } from 'uuid';
 
-const createTrack = (SESSION_ID) => {
+const createSession = () => {
     const params = {
-        TableName: 'TRACKS',
+        TableName: 'SESSIONS',
         Item: {
           'ID' : uuidv4(),
-          'SESSION_ID' : SESSION_ID,
-          'URL': 's3.somethingAgain'
+          'IS_PLAYING': false,
+          'IS_RECORDING': false,
+          'TEMPO': 120
         }
     };
       
@@ -21,4 +22,4 @@ const createTrack = (SESSION_ID) => {
     });
 };
 
-export default createTrack;
+export default createSession;

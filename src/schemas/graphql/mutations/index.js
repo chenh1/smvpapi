@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLFloat } from 'graphql';
-import { pubsub } from '../index';
+import { pubsub } from '../../index';
 import { createTrack, updateTrack, deleteTrack } from '../../../services/tracks';
 
 const TrackType = new GraphQLObjectType({

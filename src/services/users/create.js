@@ -1,13 +1,12 @@
-import { uuidv4 } from 'uuid';
+import sha256 from 'sha256';
 import { documentClient } from '../initDynamo';
 
-const createTrack = (SESSION_ID) => {
+const createUser = (EMAIL, PASSWORD) => {
     const params = {
-        TableName: 'TRACKS',
+        TableName: 'USERS',
         Item: {
-          'ID' : uuidv4(),
-          'SESSION_ID' : SESSION_ID,
-          'URL': 's3.somethingAgain'
+          'EMAIL': EMAIL,
+          'PASSWORD': sha256(PASSWORD)
         }
     };
       
@@ -21,4 +20,4 @@ const createTrack = (SESSION_ID) => {
     });
 };
 
-export default createTrack;
+export default createUser;

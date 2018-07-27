@@ -34,7 +34,9 @@
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
     "graphql-subscriptions": "^0.5.8",
-    "subscriptions-transport-ws": "^0.9.11"
+    "sha256": "^0.2.0",
+    "subscriptions-transport-ws": "^0.9.11",
+    "uuid": "^3.3.2"
   },
   "babel": {
     "presets": [

@@ -8,8 +8,10 @@ import bodyParser from 'body-parser';
 import { schema } from './schemas';
 
 import { createTrack, getTrack, updateTrack } from './services/tracks';
+import { createUser, getUser, getUsers, deleteUser, updateUser } from './services/users';
 import { createTable, listTables } from './services/tables';
 import { trackTable } from './schemas/dynamodb/tracks';
+import { userTable } from './schemas/dynamodb/users';
 
 const app = express();
 
@@ -41,8 +43,10 @@ server.listen(app.get('port'), () => {
   console.log("Running on localhost:" + app.get('port')); 
 });
 
-//createTable(trackTable);
+//createTable(userTable);
 //createTrack();
+//createUser('bloo@bloo.com', 'abc123');
 //updateTrack(1, 1, 's3.newUrl')
-getTrack(1, 1);
+//getUser('bloo@bloo.com', 'abc123');
+deleteUser('bloo@bloo.com', 'wrongpassword')
 //listTables();

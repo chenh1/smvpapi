@@ -1,15 +1,13 @@
 /**
  * Attributes
  * ID (N): Primary id
- * TRACK_URL (S): Url to s3 bucket
- * SESSION_ID (N): Id for the session the track belongs to
+ * IS_PLAYING (BOOL): whether or not session is in play
+ * IS_RECORDING (BOOL): whether or not session is in play
+ * TEMPO (N): the beats per measure of each loop
  */
-const trackTable = {
+
+const sessionTable = {
     AttributeDefinitions: [
-        {
-            AttributeName: 'SESSION_ID',
-            AttributeType: 'N'
-        },
         {
             AttributeName: 'ID',
             AttributeType: 'S'
@@ -17,23 +15,18 @@ const trackTable = {
     ],
     KeySchema: [
         {
-            AttributeName: 'SESSION_ID',
-            KeyType: 'HASH'
-        },
-        {
             AttributeName: 'ID',
-            KeyType: 'RANGE'
+            KeyType: 'HASH'
         }
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 1,
         WriteCapacityUnits: 1
     },
-    TableName: 'TRACKS',
+    TableName: 'SESSIONS',
     StreamSpecification: {
         StreamEnabled: false
-    }   
+    }  
 };
 
-
-export { trackTable };
+export { sessionTable };
