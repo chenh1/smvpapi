@@ -1,0 +1,16 @@
+language: node_js
+cache: yarn
+node_js:
+- '8.11.3'
+before_script:
+  - npm install
+script: 
+  - npm run test
+after_success:
+  - "echo 'Scripts done running'"
+env:
+deploy:
+  skip_cleanup: true
+  before_deploy: 
+    - "echo 'Starting build for repo'"
+  after_deploy: "echo 'Build for repo completed!'"
