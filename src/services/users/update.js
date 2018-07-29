@@ -9,12 +9,12 @@ const updateUser = (EMAIL, SESSION_IDS, PASSWORD) => {
     let updateExpression = `set ${PASSWORD ? '#P = :p,' : ''}${SESSION_ID ? '#S = :s,' : ''}`;
     updateExpression.substr(0, updateExpression.length - 1);
 
-    IF (PASSWORD) {
+    if (PASSWORD) {
         expressionAttributeNames['#P'] = 'PASSWORD';
         expressionAttributeValues[':p'] = sha256(PASSWORD);
     }
 
-    IF (SESSION_IDS) {
+    if (SESSION_IDS) {
         expressionAttributeNames['#S'] = 'SESSION_IDS';
         expressionAttributeValues[':s'] = SESSION_IDS;
     }
