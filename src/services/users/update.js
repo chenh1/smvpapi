@@ -1,19 +1,30 @@
 import sha256 from 'sha256';
 import { documentClient } from '../initDynamo';
 
-const updateUser = (EMAIL, PASSWORD) => {
+// existingSessions is an array of sessions that belongs to the user
+// Updating the user's session ids list should happen only if you already have the user's session list on hand
+const updateUser = (EMAIL, SESSION_IDS, PASSWORD) => {
+    const expressionAttributeNames = {};
+    const expressionAttributeValues = {};
+    let updateExpression = `set ${PASSWORD ? '#P = :p,' : ''}${SESSION_ID ? '#S = :s,' : ''}`;
+    updateExpression.substr(0, updateExpression.length - 1);
+
+    IF (PASSWORD) {
+        expressionAttributeNames['#P'] = 'PASSWORD';
+        expressionAttributeValues[':p'] = sha256(PASSWORD);
+    }
+
+    IF (SESSION_IDS) {
+        expressionAttributeNames['#S'] = 'SESSION_IDS';
+        expressionAttributeValues[':s'] = SESSION_IDS;
+    }
+
     const params = {
         TableName: 'USERS',
-        Key: {
-            EMAIL: EMAIL
-        },
-        UpdateExpression: 'set #P = :p',
-        ExpressionAttributeNames: {
-            '#P': 'PASSWORD'
-        }, 
-        ExpressionAttributeValues: {
-            ':p': sha256(PASSWORD)
-        }
+        Key: { EMAIL: EMAIL },
+        UpdateExpression: updateExpression,
+        ExpressionAttributeNames: expressionAttributeNames, 
+        ExpressionAttributeValues: expressionAttributeValues
     };
 
     documentClient.update(params, function(err, data) {

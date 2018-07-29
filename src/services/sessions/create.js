@@ -1,11 +1,14 @@
 import { documentClient } from '../initDynamo';
+import { updateUser } from '../users';
 import { uuidv4 } from 'uuid';
 
-const createSession = () => {
+const createSession = (userEmail, existingSessions = []) => {
+    const sessionId = uuidv4();
+
     const params = {
         TableName: 'SESSIONS',
         Item: {
-          'ID' : uuidv4(),
+          'ID' : sessionId,
           'IS_PLAYING': false,
           'IS_RECORDING': false,
           'TEMPO': 120
@@ -18,6 +21,7 @@ const createSession = () => {
             console.log("Error", err);
         } else {
             console.log("Success", data);
+            updateUser(userEmail, existingSessions.push(sessionId));
         }
     });
 };

@@ -20,6 +20,7 @@ const getSession = (ID) => {
     })
 };
 
+// IDS is an array of objects: [{ID: xxx}, {ID: xxy}, ...];
 const getSessions = (IDS) => {
     const params = {
         RequestItems: {

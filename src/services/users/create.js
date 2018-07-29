@@ -5,8 +5,9 @@ const createUser = (EMAIL, PASSWORD) => {
     const params = {
         TableName: 'USERS',
         Item: {
-          'EMAIL': EMAIL,
-          'PASSWORD': sha256(PASSWORD)
+            'EMAIL': EMAIL,
+            'PASSWORD': sha256(PASSWORD),
+            'SESSION_IDS': []  
         }
     };
       
