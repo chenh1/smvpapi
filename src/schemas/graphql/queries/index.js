@@ -2,34 +2,7 @@ import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoole
 import { getTrack } from '../../../services/tracks';
 import { getSession, getSessions } from '../../../services/sessions';
 import { getUser } from '../../../services/users';
-
-const TrackType = new GraphQLObjectType({
-    name: 'Track',
-    fields: {
-        ID: { type: GraphQLInt },
-        SESSION_ID: { type: GraphQLInt },
-        URL: { type: GraphQLString }
-    }
-});
-
-const SessionType = new GraphQLObjectType({
-    name: 'Session',
-    fields: {
-        ID: { type: GraphQLString },
-        IS_PLAYING: { type: GraphQLBoolean },
-        IS_RECORDING: { type: GraphQLBoolean },
-        TEMPO: { type: GraphQLInt }
-    }
-});
-
-const UserType = new GraphQLObjectType({
-    name: 'User',
-    fields: {
-        EMAIL: { type: GraphQLString },
-        PASSWORD: { type: GraphQLString },
-        SESSION_IDS: { type: GraphQLList(GraphQLString) }
-    }
-});
+import { TrackType, SessionType, UserType } from '../types';
 
 const query = new GraphQLObjectType({
     name: 'Query',
