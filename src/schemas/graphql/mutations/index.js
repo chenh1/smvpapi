@@ -1,13 +1,7 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLFloat } from 'graphql';
 import { pubsub } from '../../index';
 import { createTrack, updateTrack, deleteTrack } from '../../../services/tracks';
-
-const TrackType = new GraphQLObjectType({
-    name: 'TrackType',
-    fields: {
-        ID: { type: GraphQLInt }
-    }
-});
+import { TrackType, SessionType, UserType } from '../types';
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
