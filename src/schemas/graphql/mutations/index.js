@@ -9,11 +9,9 @@ const mutation = new GraphQLObjectType({
         createTrack: {
             type: TrackType,
             args: {
-                ID: { type: GraphQLInt },
                 SESSION_ID: { type: GraphQLInt },
-                URL: { type: GraphQLString }
             },
-            resolve: (rootValue, args) => (createTrack(args.ID, args.SESSION_ID, URL).then(
+            resolve: (rootValue, args) => (createTrack(args.SESSION_ID).then(
                 res => pubsub.publish('trackCreated', {trackCreated: res})
             ))
         },
@@ -25,7 +23,7 @@ const mutation = new GraphQLObjectType({
                 URL: { type: GraphQLString }
             },
             resolve: (rootValue, args) => (updateTrack(args.SESSION_ID, args.ID, args.URL).then(
-                res => pubsub.publish('trackCreated', {trackCreated: res})
+                res => pubsub.publish('trackUpdated', {trackUpdated: res})
             ))
         },
         deleteTrack: {
@@ -37,6 +35,8 @@ const mutation = new GraphQLObjectType({
             resolve: (rootValue, args) => (deleteTrack(args.SESSION_ID, args.ID).then(
                 res => pubsub.publish('trackDeleted', {trackDeleted: res})
             ))
-        }
+        },
+        //CUD for sessions
+        //CUD for users
     })
 });
