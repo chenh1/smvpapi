@@ -16,9 +16,15 @@ const updateTrack = (SESSION_ID, ID, URL) => {
         }
     };
 
-    documentClient.update(params, function(err, data) {
-        if (err) console.log(err);
-        else console.log(data);
+    return new Promise(resolve => {
+        documentClient.update(params, function(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+                resolve([data.Item]);
+            }
+        });
     });
 };
 

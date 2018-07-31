@@ -1,6 +1,6 @@
 import { documentClient } from '../initDynamo';
 
-const updateSession = ({ IS_PLAYING, IS_RECORDING, TEMPO }) => {
+const updateSession = (IS_PLAYING, IS_RECORDING, TEMPO) => {
     const expressionAttributeNames = {};
     const expressionAttributeValues = {};
     let updateExpression = `set ${IS_PLAYING ? '#P = :p,' : ''}${IS_RECORDING ? '#R = :r,' : ''}${TEMPO ? '#T = :t,' : ''}`;
@@ -29,9 +29,15 @@ const updateSession = ({ IS_PLAYING, IS_RECORDING, TEMPO }) => {
         ExpressionAttributeValues: expressionAttributeValues
     };
 
-    documentClient.update(params, function(err, data) {
-        if (err) console.log(err);
-        else console.log(data);
+    return new Promise(resolve => {
+        documentClient.update(params, function(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+                resolve([data.Item]);
+            }
+        });
     });
 };
 

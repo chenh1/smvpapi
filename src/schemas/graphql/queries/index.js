@@ -1,14 +1,8 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLFloat } from 'graphql';
 import { getTrack } from '../../../services/tracks';
-
-const TrackType = new GraphQLObjectType({
-    name: 'Track',
-    fields: {
-        ID: { type: GraphQLInt },
-        SESSION_ID: { type: GraphQLInt },
-        URL: { type: GraphQLString }
-    }
-});
+import { getSession, getSessions } from '../../../services/sessions';
+import { getUser } from '../../../services/users';
+import { TrackType, SessionType, UserType } from '../types';
 
 const query = new GraphQLObjectType({
     name: 'Query',
@@ -21,6 +15,26 @@ const query = new GraphQLObjectType({
             },
             resolve: (rootValue, args) => (getTrack(args.ID, args.SESSION_ID).then(res=>res))
         },
+        session: {
+            type: new GraphQLList(SessionType),
+            args: {
+                ID: { type: GraphQLString },
+                IDS: { type: GraphQLList(GraphQLString) } 
+            },
+            resolve: (rootValue, args) => args.IDS.length ?
+                getSessions(args.IDS.map(id => ({ID: id}))).then(res => res)
+                : getSession(args.ID).then(res => res)
+        },
+        user: {
+            type: new GraphQLList(UserType),
+            args: {
+                EMAIL: { type: GraphQLString },
+                PASSWORD: { type: GraphQLString }
+            },
+            resolve: (rootValue, args) => args.PASSWORD ? 
+                getUser(args.EMAIL, args.PASSWORD).then(res=>res)
+                : 'password required to retrieve data'
+        }
     })
 });
 
