@@ -103,6 +103,8 @@ const mutation = new GraphQLObjectType({
             resolve: (rootValue, args) => (deleteUser(args.EMAIL, args.PASSWORD).then(
                 res => pubsub.publish('userDeleted', {userDeleted: res})
             ))
-        },
+        }
     })
 });
+
+export default mutation;
