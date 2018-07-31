@@ -9,16 +9,19 @@ const deleteSession = (ID, userEmail, existingSessions = []) => {
         Key: { ID: ID }
     };
 
-    documentClient.delete(params, function(err, data) {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log(data);
-            updateUser(userEmail, [
-                ...existingSessions.slice(0, indexOfId),
-                ...existingSessions.slice(indexOfId + 1, existingSessions.length)
-            ])
-        }
+    return new Promise(resolve => {
+        documentClient.delete(params, function(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+                updateUser(userEmail, [
+                    ...existingSessions.slice(0, indexOfId),
+                    ...existingSessions.slice(indexOfId + 1, existingSessions.length)
+                ]);
+                resolve([data.Item]);
+            }
+        });
     });
 };
 

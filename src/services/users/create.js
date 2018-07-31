@@ -12,12 +12,15 @@ const createUser = (EMAIL, PASSWORD) => {
     };
       
     // Call documentClient to add the item to the table
-    documentClient.put(params, function(err, data) {
-        if (err) {
-            console.log("Error", err);
-        } else {
-            console.log("Success", data);
-        }
+    return new Promise(resolve => {
+        documentClient.put(params, function(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+                resolve([data.Item]);
+            }
+        });
     });
 };
 

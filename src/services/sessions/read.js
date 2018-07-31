@@ -3,9 +3,7 @@ import { documentClient } from '../initDynamo';
 const getSession = (ID) => {
     const params = {
         TableName: 'SESSIONS',
-        Key: {
-            ID: ID
-        }
+        Key: { ID: ID }
     };
 
     return new Promise(resolve => {
@@ -14,10 +12,10 @@ const getSession = (ID) => {
                 console.log("Error", err);
             } else {
                 console.log("Success item retrieved: ", data.Item);
-                resolve([data.Item])
+                resolve([data.Item]);
             }
         });
-    })
+    });
 };
 
 // IDS is an array of objects: [{ID: xxx}, {ID: xxy}, ...];

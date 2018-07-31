@@ -8,6 +8,6 @@ export const pubsub = new PubSub();
 
 export const schema = new GraphQLSchema({
   query,
-  //mutation,
-  //subscription
+  mutation,
+  subscription
 });

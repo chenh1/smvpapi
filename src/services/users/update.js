@@ -27,13 +27,15 @@ const updateUser = (EMAIL, SESSION_IDS, PASSWORD) => {
         ExpressionAttributeValues: expressionAttributeValues
     };
 
-    documentClient.update(params, function(err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(data);
-            resolve([data.Item])
-        }
+    return new Promise(resolve => {
+        documentClient.update(params, function(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+                resolve([data.Item]);
+            }
+        });
     });
 };
 
