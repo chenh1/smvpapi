@@ -1,6 +1,6 @@
 import { documentClient } from '../initDynamo';
 
-const updateSession = ({ IS_PLAYING, IS_RECORDING, TEMPO }) => {
+const updateSession = (IS_PLAYING, IS_RECORDING, TEMPO) => {
     const expressionAttributeNames = {};
     const expressionAttributeValues = {};
     let updateExpression = `set ${IS_PLAYING ? '#P = :p,' : ''}${IS_RECORDING ? '#R = :r,' : ''}${TEMPO ? '#T = :t,' : ''}`;
