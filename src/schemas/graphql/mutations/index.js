@@ -2,6 +2,7 @@ import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoole
 import { pubsub } from '../../index';
 import { createTrack, updateTrack, deleteTrack } from '../../../services/tracks';
 import { createSession, updateSession, deleteSession } from '../../../services/sessions';
+import { createUser, updateUser, deleteUser } from '../../../services/users';
 import { TrackType, SessionType, UserType } from '../types';
 
 const mutation = new GraphQLObjectType({
