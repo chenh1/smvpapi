@@ -16,7 +16,7 @@ const getUser = (EMAIL, PASSWORD) => {
                 resolve(err);
             } else {
                 console.log("Success item retrieved: ", data.Item);
-                if (sha256(PASSWORD) === data.Item.PASSWORD) {
+                if (data.Item && sha256(PASSWORD) === data.Item.PASSWORD) {
                     resolve([data.Item])    
                 } else {
                     resolve('password is incorrect')

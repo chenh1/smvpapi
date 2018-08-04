@@ -8,7 +8,7 @@ const trackTable = {
     AttributeDefinitions: [
         {
             AttributeName: 'SESSION_ID',
-            AttributeType: 'N'
+            AttributeType: 'S'
         },
         {
             AttributeName: 'ID',

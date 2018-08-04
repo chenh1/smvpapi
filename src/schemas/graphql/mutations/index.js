@@ -2,6 +2,7 @@ import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoole
 import { pubsub } from '../../index';
 import { createTrack, updateTrack, deleteTrack } from '../../../services/tracks';
 import { createSession, updateSession, deleteSession } from '../../../services/sessions';
+import { createUser, updateUser, deleteUser } from '../../../services/users';
 import { TrackType, SessionType, UserType } from '../types';
 
 const mutation = new GraphQLObjectType({
@@ -43,9 +44,8 @@ const mutation = new GraphQLObjectType({
             type: SessionType,
             args: {
                 userEmail: { type: GraphQLString },
-                existingSessions: { type: GraphQLList(GraphQLString) }
             },
-            resolve: (rootValue, args) => (createSession(args.userEmail, args.existingSessions).then(
+            resolve: (rootValue, args) => (createSession(args.userEmail).then(
                 res => pubsub.publish('sessionCreated', {sessionCreated: res})
             ))
         },

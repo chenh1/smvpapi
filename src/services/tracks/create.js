@@ -2,10 +2,12 @@ import { uuidv4 } from 'uuid';
 import { documentClient } from '../initDynamo';
 
 const createTrack = (SESSION_ID) => {
+    const trackId = uuidv4();
+
     const params = {
         TableName: 'TRACKS',
         Item: {
-          'ID' : uuidv4(),
+          'ID' : trackId,
           'SESSION_ID' : SESSION_ID,
           'URL': 's3.somethingAgain'
         }
@@ -18,6 +20,7 @@ const createTrack = (SESSION_ID) => {
                 console.log("Error", err);
             } else {
                 console.log("Success", data);
+                console.log('track id: ', trackId);
                 resolve([data.Item]);
             }
         });

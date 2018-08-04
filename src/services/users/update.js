@@ -3,20 +3,20 @@ import { documentClient } from '../initDynamo';
 
 // existingSessions is an array of sessions that belongs to the user
 // Updating the user's session ids list should happen only if you already have the user's session list on hand
-const updateUser = (EMAIL, SESSION_IDS, PASSWORD) => {
+const updateUser = (EMAIL, SESSION_ID, PASSWORD) => {
     const expressionAttributeNames = {};
     const expressionAttributeValues = {};
-    let updateExpression = `set ${PASSWORD ? '#P = :p,' : ''}${SESSION_ID ? '#S = :s,' : ''}`;
-    updateExpression.substr(0, updateExpression.length - 1);
+    let updateExpression = `set ${PASSWORD ? '#P = :p,' : ''}${SESSION_ID ? '#S = list_append(#S, :s),' : ''}`;
+    updateExpression = updateExpression.substr(0, updateExpression.length - 1);
 
     if (PASSWORD) {
         expressionAttributeNames['#P'] = 'PASSWORD';
         expressionAttributeValues[':p'] = sha256(PASSWORD);
     }
 
-    if (SESSION_IDS) {
+    if (SESSION_ID) {
         expressionAttributeNames['#S'] = 'SESSION_IDS';
-        expressionAttributeValues[':s'] = SESSION_IDS;
+        expressionAttributeValues[':s'] = SESSION_ID;
     }
 
     const params = {
