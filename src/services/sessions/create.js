@@ -2,7 +2,7 @@ import { documentClient } from '../initDynamo';
 import { updateUser } from '../users';
 import uuidv4 from 'uuid/v4';
 
-const createSession = (userEmail, existingSessions = []) => {
+const createSession = (userEmail) => {
     const sessionId = uuidv4();
 
     const params = {
@@ -22,7 +22,7 @@ const createSession = (userEmail, existingSessions = []) => {
             } else {
                 console.log("Success", data.Item);
                 console.log('session id: ', sessionId);
-                updateUser(userEmail, [...existingSessions, sessionId]);
+                updateUser(userEmail, [sessionId]);
                 resolve([data.Item])
             }
         });

@@ -44,9 +44,8 @@ const mutation = new GraphQLObjectType({
             type: SessionType,
             args: {
                 userEmail: { type: GraphQLString },
-                existingSessions: { type: GraphQLList(GraphQLString) }
             },
-            resolve: (rootValue, args) => (createSession(args.userEmail, args.existingSessions).then(
+            resolve: (rootValue, args) => (createSession(args.userEmail).then(
                 res => pubsub.publish('sessionCreated', {sessionCreated: res})
             ))
         },
