@@ -7,7 +7,7 @@ const createUser = (EMAIL, PASSWORD) => {
         Item: {
             'EMAIL': EMAIL,
             'PASSWORD': sha256(PASSWORD),
-            'SESSION_IDS': []  
+            'SESSION_IDS': ["init"]
         }
     };
       

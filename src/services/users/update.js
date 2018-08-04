@@ -6,9 +6,9 @@ import { documentClient } from '../initDynamo';
 const updateUser = (EMAIL, SESSION_IDS, PASSWORD) => {
     const expressionAttributeNames = {};
     const expressionAttributeValues = {};
-    let updateExpression = `set ${PASSWORD ? '#P = :p,' : ''}${SESSION_ID ? '#S = :s,' : ''}`;
-    updateExpression.substr(0, updateExpression.length - 1);
-
+    let updateExpression = `set ${PASSWORD ? '#P = :p,' : ''}${SESSION_IDS ? '#S = list_append(#S, :s),' : ''}`;
+    updateExpression = updateExpression.substr(0, updateExpression.length - 1);
+    
     if (PASSWORD) {
         expressionAttributeNames['#P'] = 'PASSWORD';
         expressionAttributeValues[':p'] = sha256(PASSWORD);
@@ -26,6 +26,8 @@ const updateUser = (EMAIL, SESSION_IDS, PASSWORD) => {
         ExpressionAttributeNames: expressionAttributeNames, 
         ExpressionAttributeValues: expressionAttributeValues
     };
+
+    console.log('params in update: ', params)
 
     return new Promise(resolve => {
         documentClient.update(params, function(err, data) {

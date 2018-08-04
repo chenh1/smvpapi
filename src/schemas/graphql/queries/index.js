@@ -10,8 +10,8 @@ const query = new GraphQLObjectType({
         track: {
             type: new GraphQLList(TrackType),
             args: {
-                SESSION_ID: { type: GraphQLInt },
-                ID: { type: GraphQLInt }
+                SESSION_ID: { type: GraphQLString },
+                ID: { type: GraphQLString }
             },
             resolve: (rootValue, args) => (getTrack(args.ID, args.SESSION_ID).then(res=>res))
         },
@@ -21,7 +21,7 @@ const query = new GraphQLObjectType({
                 ID: { type: GraphQLString },
                 IDS: { type: GraphQLList(GraphQLString) } 
             },
-            resolve: (rootValue, args) => args.IDS.length ?
+            resolve: (rootValue, args) => args.IDS && args.IDS.length ?
                 getSessions(args.IDS.map(id => ({ID: id}))).then(res => res)
                 : getSession(args.ID).then(res => res)
         },

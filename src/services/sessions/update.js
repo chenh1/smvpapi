@@ -4,7 +4,7 @@ const updateSession = (IS_PLAYING, IS_RECORDING, TEMPO) => {
     const expressionAttributeNames = {};
     const expressionAttributeValues = {};
     let updateExpression = `set ${IS_PLAYING ? '#P = :p,' : ''}${IS_RECORDING ? '#R = :r,' : ''}${TEMPO ? '#T = :t,' : ''}`;
-    updateExpression.substr(0, updateExpression.length - 1);
+    updateExpression = updateExpression.substr(0, updateExpression.length - 1);
 
     if (IS_PLAYING) {
         expressionAttributeNames['#P'] = 'IS_PLAYING';
