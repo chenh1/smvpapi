@@ -7,15 +7,18 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import bodyParser from 'body-parser';
 import { schema } from './schemas';
 
+
 /*
 import { createTrack, getTrack, updateTrack } from './services/tracks';
 import { createUser, getUser, getUsers, deleteUser, updateUser } from './services/users';
 import { createSession, getSession, getSessions } from './services/sessions';
-import { createTable, listTables } from './services/tables';
 import { trackTable } from './schemas/dynamodb/tracks';
 import { userTable } from './schemas/dynamodb/users';
 import { sessionTable } from './schemas/dynamodb/sessions';
 */
+import { authTable, authTableUpdateTTL } from './schemas/dynamodb/auth';
+import { createTable, listTables, deleteTable, updateTimeToLive, describeTimeToLive } from './services/tables';
+import { createAuthSession, getAuthSession } from './services/auth';
 
 const app = express();
 
@@ -44,5 +47,8 @@ app.get('/graphql', graphqlHTTP({
 
 server.listen(app.get('port'), () => {
   new SubscriptionServer({schema, execute, subscribe}, {server, path: '/subscriptions'});
+  //describeTimeToLive({ TableName: 'AUTH' })
+  //createAuthSession('bloo@bloo.com');
+  getAuthSession('bloo@bloo.com', 'key10');
   console.log("Running on localhost:" + app.get('port')); 
 });

@@ -15,6 +15,27 @@ const listTables = () => {
         if (err) console.log(err, err.stack); // an error occurred
         else     console.log(data);           // successful response
     }); 
-}
+};
 
-export { createTable, listTables };
+const deleteTable = (params) => {
+    dynamodb.deleteTable(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    });
+};
+
+const updateTimeToLive = (params) => {
+    dynamodb.updateTimeToLive(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    })
+};
+
+const describeTimeToLive = (params) => {
+    dynamodb.describeTimeToLive(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    })
+};
+
+export { createTable, listTables, deleteTable, updateTimeToLive, describeTimeToLive };
