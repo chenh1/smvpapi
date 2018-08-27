@@ -47,8 +47,5 @@ app.get('/graphql', graphqlHTTP({
 
 server.listen(app.get('port'), () => {
   new SubscriptionServer({schema, execute, subscribe}, {server, path: '/subscriptions'});
-  //describeTimeToLive({ TableName: 'AUTH' })
-  //createAuthSession('bloo@bloo.com');
-  getAuthSession('bloo@bloo.com', 'key10');
   console.log("Running on localhost:" + app.get('port')); 
 });

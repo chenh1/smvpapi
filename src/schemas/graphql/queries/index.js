@@ -1,12 +1,21 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLFloat } from 'graphql';
+import { getAuthSession } from '../../../services/auth';
 import { getTrack } from '../../../services/tracks';
 import { getSession, getSessions } from '../../../services/sessions';
 import { getUser } from '../../../services/users';
-import { TrackType, SessionType, UserType } from '../types';
+import { TrackType, SessionType, UserType, AuthType } from '../types';
 
 const query = new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
+        auth: {
+            type: new GraphQLList(AuthType),
+            args: {
+                EMAIL: { type: GraphQLString },
+                AUTH_ID: { type: GraphQLString }
+            },
+            resolve: (rootValue, args) => (getAuthSession(args.EMAIL, args.AUTH_ID).then(res=>res))
+        },
         track: {
             type: new GraphQLList(TrackType),
             args: {

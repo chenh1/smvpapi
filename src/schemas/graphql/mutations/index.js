@@ -1,13 +1,26 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLFloat } from 'graphql';
 import { pubsub } from '../../index';
+import { createAuthSession } from '../../../services/auth';
 import { createTrack, updateTrack, deleteTrack } from '../../../services/tracks';
 import { createSession, updateSession, deleteSession } from '../../../services/sessions';
 import { createUser, updateUser, deleteUser } from '../../../services/users';
-import { TrackType, SessionType, UserType } from '../types';
+import { TrackType, SessionType, UserType, AuthType } from '../types';
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ({
+        createAuthSession: {
+            type: AuthType,
+            args: {
+                EMAIL: { type: GraphQLString }
+            },
+            resolve: (rootValue, args) => (createAuthSession(args.EMAIL).then(
+                res => {
+                    console.log(res);
+                    return res
+                }
+            ))
+        },
         createTrack: {
             type: TrackType,
             args: {
